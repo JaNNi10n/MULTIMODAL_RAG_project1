@@ -1,0 +1,18 @@
+[project]
+name = "mmrag"
+version = "1.0.0"
+description = "Retrieval-augmented question answering over scanned and digital documents with BM25/FAISS and Qwen2.5-VL"
+authors = [{ name = "Shivansh Bhardwaj" }]
+license = { text = "MIT" }
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]

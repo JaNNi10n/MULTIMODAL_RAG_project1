@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+
+# Generated data, indexes and model caches (re-create with the commands in README)
+data/synthetic/pdf/
+data/synthetic/scans/
+indexes/
+.hf_cache/
+*.faiss
+
+# Local outputs
+outputs/
+*.log
+.DS_Store
+Thumbs.db
