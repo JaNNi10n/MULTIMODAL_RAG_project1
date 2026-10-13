@@ -19,3 +19,6 @@ outputs/
 *.log
 .DS_Store
 Thumbs.db
+
+# Keep run logs that back the numbers in README
+!results/*.log

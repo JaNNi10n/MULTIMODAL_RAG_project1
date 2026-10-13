@@ -1,0 +1,120 @@
+{
+  "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+  "qa_file": "data/synthetic/qa.jsonl",
+  "env": {
+    "python": "3.12.10",
+    "os": "Windows-10-10.0.19045-SP0",
+    "torch": "2.3.1+cu118",
+    "gpu": "NVIDIA GeForce RTX 3050 Ti Laptop GPU"
+  },
+  "results": {
+    "indexes/pdf": {
+      "dense": {
+        "hit@1": 0.1417,
+        "hit@3": 0.3083,
+        "hit@5": 0.475,
+        "mrr@10": 0.2905,
+        "n_questions": 120,
+        "ms_per_query": 63.94
+      },
+      "bm25": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "mrr@10": 1.0,
+        "n_questions": 120,
+        "ms_per_query": 0.88
+      },
+      "hybrid": {
+        "hit@1": 0.4333,
+        "hit@3": 0.6583,
+        "hit@5": 0.8167,
+        "mrr@10": 0.6004,
+        "n_questions": 120,
+        "ms_per_query": 80.88
+      },
+      "n_chunks": 76
+    },
+    "indexes/ocr": {
+      "dense": {
+        "hit@1": 0.1083,
+        "hit@3": 0.275,
+        "hit@5": 0.375,
+        "mrr@10": 0.2414,
+        "n_questions": 120,
+        "ms_per_query": 79.37
+      },
+      "bm25": {
+        "hit@1": 0.9667,
+        "hit@3": 0.9917,
+        "hit@5": 1.0,
+        "mrr@10": 0.9808,
+        "n_questions": 120,
+        "ms_per_query": 1.23
+      },
+      "hybrid": {
+        "hit@1": 0.375,
+        "hit@3": 0.6167,
+        "hit@5": 0.7833,
+        "mrr@10": 0.5511,
+        "n_questions": 120,
+        "ms_per_query": 60.15
+      },
+      "n_chunks": 52
+    },
+    "indexes/pdf_hdr16": {
+      "dense": {
+        "hit@1": 0.1667,
+        "hit@3": 0.325,
+        "hit@5": 0.4417,
+        "mrr@10": 0.2964,
+        "n_questions": 120,
+        "ms_per_query": 45.06
+      },
+      "bm25": {
+        "hit@1": 0.9833,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "mrr@10": 0.9889,
+        "n_questions": 120,
+        "ms_per_query": 1.44
+      },
+      "hybrid": {
+        "hit@1": 0.4667,
+        "hit@3": 0.675,
+        "hit@5": 0.8333,
+        "mrr@10": 0.6194,
+        "n_questions": 120,
+        "ms_per_query": 35.07
+      },
+      "n_chunks": 76
+    },
+    "indexes/ocr_hdr16": {
+      "dense": {
+        "hit@1": 0.1083,
+        "hit@3": 0.275,
+        "hit@5": 0.375,
+        "mrr@10": 0.2436,
+        "n_questions": 120,
+        "ms_per_query": 35.62
+      },
+      "bm25": {
+        "hit@1": 0.9667,
+        "hit@3": 0.9917,
+        "hit@5": 1.0,
+        "mrr@10": 0.9808,
+        "n_questions": 120,
+        "ms_per_query": 0.89
+      },
+      "hybrid": {
+        "hit@1": 0.325,
+        "hit@3": 0.6083,
+        "hit@5": 0.8,
+        "mrr@10": 0.5161,
+        "n_questions": 120,
+        "ms_per_query": 26.7
+      },
+      "n_chunks": 52
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{"doc_id": "invoice_000", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-6305-00?", "answer": "26,318.72"}
+{"doc_id": "invoice_000", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-6305-00?", "answer": "Lotus Print Works"}
+{"doc_id": "invoice_000", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-6305-00?", "answer": "4,014.72"}
+{"doc_id": "statement_001", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 1968?", "answer": "29,598.50"}
+{"doc_id": "statement_001", "page": 1, "kind": "statement", "question": "How much did account 1968 pay to Hilltop Hardware?", "answer": "5,313.00"}
+{"doc_id": "statement_001", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 1968?", "answer": "Yash Iyer"}
+{"doc_id": "bill_002", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 913-3945?", "answer": "888"}
+{"doc_id": "bill_002", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 913-3945?", "answer": "5,670.00"}
+{"doc_id": "invoice_003", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-5717-03?", "answer": "302,846.71"}
+{"doc_id": "invoice_003", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-5717-03?", "answer": "Granite IT Solutions"}
+{"doc_id": "invoice_003", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-5717-03?", "answer": "46,196.96"}
+{"doc_id": "statement_004", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 1994?", "answer": "74,296.00"}
+{"doc_id": "statement_004", "page": 1, "kind": "statement", "question": "How much did account 1994 pay to Cafe Aroma?", "answer": "2,434.00"}
+{"doc_id": "statement_004", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 1994?", "answer": "Nisha Kapoor"}
+{"doc_id": "bill_005", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 336-3472?", "answer": "270"}
+{"doc_id": "bill_005", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 336-3472?", "answer": "1,807.50"}
+{"doc_id": "invoice_006", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-1067-06?", "answer": "275,099.30"}
+{"doc_id": "invoice_006", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-1067-06?", "answer": "Lotus Print Works"}
+{"doc_id": "invoice_006", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-1067-06?", "answer": "41,964.30"}
+{"doc_id": "statement_007", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 2103?", "answer": "27,734.00"}
+{"doc_id": "statement_007", "page": 1, "kind": "statement", "question": "How much did account 2103 pay to Hilltop Hardware?", "answer": "2,925.50"}
+{"doc_id": "statement_007", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 2103?", "answer": "Vikram Nair"}
+{"doc_id": "bill_008", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 204-6613?", "answer": "361"}
+{"doc_id": "bill_008", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 204-6613?", "answer": "2,997.75"}
+{"doc_id": "invoice_009", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-3401-09?", "answer": "249,969.72"}
+{"doc_id": "invoice_009", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-3401-09?", "answer": "Peacock Travel Desk"}
+{"doc_id": "invoice_009", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-3401-09?", "answer": "38,130.97"}
+{"doc_id": "statement_010", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 6825?", "answer": "35,077.00"}
+{"doc_id": "statement_010", "page": 1, "kind": "statement", "question": "How much did account 6825 pay to Railway e-Ticket?", "answer": "1,938.50"}
+{"doc_id": "statement_010", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 6825?", "answer": "Aarav Malhotra"}
+{"doc_id": "bill_011", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 188-7485?", "answer": "501"}
+{"doc_id": "bill_011", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 188-7485?", "answer": "2,955.50"}
+{"doc_id": "invoice_012", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-3394-12?", "answer": "100,639.25"}
+{"doc_id": "invoice_012", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-3394-12?", "answer": "Granite IT Solutions"}
+{"doc_id": "invoice_012", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-3394-12?", "answer": "15,351.75"}
+{"doc_id": "statement_013", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 5249?", "answer": "10,736.00"}
+{"doc_id": "statement_013", "page": 1, "kind": "statement", "question": "How much did account 5249 pay to Metro Card Recharge?", "answer": "4,189.00"}
+{"doc_id": "statement_013", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 5249?", "answer": "Sana Sethi"}
+{"doc_id": "bill_014", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 798-9492?", "answer": "658"}
+{"doc_id": "bill_014", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 798-9492?", "answer": "5,219.50"}
+{"doc_id": "invoice_015", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-9318-15?", "answer": "251,522.31"}
+{"doc_id": "invoice_015", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-9318-15?", "answer": "Indigo Furniture Co"}
+{"doc_id": "invoice_015", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-9318-15?", "answer": "38,367.81"}
+{"doc_id": "statement_016", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 4319?", "answer": "54,701.50"}
+{"doc_id": "statement_016", "page": 1, "kind": "statement", "question": "How much did account 4319 pay to Sunrise Gym?", "answer": "2,560.00"}
+{"doc_id": "statement_016", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 4319?", "answer": "Manav Chawla"}
+{"doc_id": "bill_017", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 627-7616?", "answer": "521"}
+{"doc_id": "bill_017", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 627-7616?", "answer": "3,406.25"}
+{"doc_id": "invoice_018", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-8216-18?", "answer": "120,082.99"}
+{"doc_id": "invoice_018", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-8216-18?", "answer": "Bluepeak Office Supplies"}
+{"doc_id": "invoice_018", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-8216-18?", "answer": "18,317.74"}
+{"doc_id": "statement_019", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 5572?", "answer": "46,787.50"}
+{"doc_id": "statement_019", "page": 1, "kind": "statement", "question": "How much did account 5572 pay to FreshMart Grocers?", "answer": "4,610.50"}
+{"doc_id": "statement_019", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 5572?", "answer": "Diya Rao"}
+{"doc_id": "bill_020", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 396-8302?", "answer": "778"}
+{"doc_id": "bill_020", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 396-8302?", "answer": "5,012.50"}
+{"doc_id": "invoice_021", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-9284-21?", "answer": "201,845.19"}
+{"doc_id": "invoice_021", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-9284-21?", "answer": "Peacock Travel Desk"}
+{"doc_id": "invoice_021", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-9284-21?", "answer": "30,789.94"}
+{"doc_id": "statement_022", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 1891?", "answer": "230.50"}
+{"doc_id": "statement_022", "page": 1, "kind": "statement", "question": "How much did account 1891 pay to Zenith Pharmacy?", "answer": "1,370.50"}
+{"doc_id": "statement_022", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 1891?", "answer": "Rohan Malhotra"}
+{"doc_id": "bill_023", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 354-9269?", "answer": "183"}
+{"doc_id": "bill_023", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 354-9269?", "answer": "1,401.00"}
+{"doc_id": "invoice_024", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-5984-24?", "answer": "296,377.94"}
+{"doc_id": "invoice_024", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-5984-24?", "answer": "Saffron Logistics"}
+{"doc_id": "invoice_024", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-5984-24?", "answer": "45,210.19"}
+{"doc_id": "statement_025", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 4767?", "answer": "27.50"}
+{"doc_id": "statement_025", "page": 1, "kind": "statement", "question": "How much did account 4767 pay to Sunrise Gym?", "answer": "4,200.00"}
+{"doc_id": "statement_025", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 4767?", "answer": "Kabir Malhotra"}
+{"doc_id": "bill_026", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 966-5350?", "answer": "836"}
+{"doc_id": "bill_026", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 966-5350?", "answer": "5,345.00"}
+{"doc_id": "invoice_027", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-1765-27?", "answer": "209,385.40"}
+{"doc_id": "invoice_027", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-1765-27?", "answer": "Granite IT Solutions"}
+{"doc_id": "invoice_027", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-1765-27?", "answer": "31,940.15"}
+{"doc_id": "statement_028", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 9996?", "answer": "2,436.00"}
+{"doc_id": "statement_028", "page": 1, "kind": "statement", "question": "How much did account 9996 pay to FreshMart Grocers?", "answer": "3,761.50"}
+{"doc_id": "statement_028", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 9996?", "answer": "Vikram Bose"}
+{"doc_id": "bill_029", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 515-5947?", "answer": "234"}
+{"doc_id": "bill_029", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 515-5947?", "answer": "1,963.50"}
+{"doc_id": "invoice_030", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-7525-30?", "answer": "105,202.60"}
+{"doc_id": "invoice_030", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-7525-30?", "answer": "Corvid Cloud Services"}
+{"doc_id": "invoice_030", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-7525-30?", "answer": "16,047.85"}
+{"doc_id": "statement_031", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 1845?", "answer": "10,581.00"}
+{"doc_id": "statement_031", "page": 1, "kind": "statement", "question": "How much did account 1845 pay to Metro Card Recharge?", "answer": "4,619.00"}
+{"doc_id": "statement_031", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 1845?", "answer": "Nisha Kapoor"}
+{"doc_id": "bill_032", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 274-8736?", "answer": "441"}
+{"doc_id": "bill_032", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 274-8736?", "answer": "3,237.00"}
+{"doc_id": "invoice_033", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-5928-33?", "answer": "108,781.25"}
+{"doc_id": "invoice_033", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-5928-33?", "answer": "Indigo Furniture Co"}
+{"doc_id": "invoice_033", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-5928-33?", "answer": "16,593.75"}
+{"doc_id": "statement_034", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 6231?", "answer": "28,257.00"}
+{"doc_id": "statement_034", "page": 1, "kind": "statement", "question": "How much did account 6231 pay to Sunrise Gym?", "answer": "3,230.50"}
+{"doc_id": "statement_034", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 6231?", "answer": "Isha Kulkarni"}
+{"doc_id": "bill_035", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 500-9648?", "answer": "549"}
+{"doc_id": "bill_035", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 500-9648?", "answer": "3,551.25"}
+{"doc_id": "invoice_036", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-8492-36?", "answer": "131,703.04"}
+{"doc_id": "invoice_036", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-8492-36?", "answer": "Corvid Cloud Services"}
+{"doc_id": "invoice_036", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-8492-36?", "answer": "20,090.29"}
+{"doc_id": "statement_037", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 2629?", "answer": "92,159.00"}
+{"doc_id": "statement_037", "page": 1, "kind": "statement", "question": "How much did account 2629 pay to Railway e-Ticket?", "answer": "3,853.50"}
+{"doc_id": "statement_037", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 2629?", "answer": "Kabir Bose"}
+{"doc_id": "bill_038", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 310-9121?", "answer": "409"}
+{"doc_id": "bill_038", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 310-9121?", "answer": "2,676.25"}
+{"doc_id": "invoice_039", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-4068-39?", "answer": "119,500.67"}
+{"doc_id": "invoice_039", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-4068-39?", "answer": "Saffron Logistics"}
+{"doc_id": "invoice_039", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-4068-39?", "answer": "18,228.92"}
+{"doc_id": "statement_040", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 1522?", "answer": "70,026.00"}
+{"doc_id": "statement_040", "page": 1, "kind": "statement", "question": "How much did account 1522 pay to Sunrise Gym?", "answer": "1,093.00"}
+{"doc_id": "statement_040", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 1522?", "answer": "Nisha Kapoor"}
+{"doc_id": "bill_041", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 141-7153?", "answer": "565"}
+{"doc_id": "bill_041", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 141-7153?", "answer": "3,227.50"}
+{"doc_id": "invoice_042", "page": 1, "kind": "invoice", "question": "What is the total amount due on invoice INV-6946-42?", "answer": "91,193.06"}
+{"doc_id": "invoice_042", "page": 1, "kind": "invoice", "question": "Which company issued invoice INV-6946-42?", "answer": "Quartz Lab Instruments"}
+{"doc_id": "invoice_042", "page": 1, "kind": "invoice", "question": "How much GST is charged on invoice INV-6946-42?", "answer": "13,910.81"}
+{"doc_id": "statement_043", "page": 1, "kind": "statement", "question": "What is the closing balance for the statement of account ending 7332?", "answer": "43,979.50"}
+{"doc_id": "statement_043", "page": 1, "kind": "statement", "question": "How much did account 7332 pay to Zenith Pharmacy?", "answer": "5,749.00"}
+{"doc_id": "statement_043", "page": 1, "kind": "statement", "question": "Who is the account holder of account ending 7332?", "answer": "Arjun Dutta"}
+{"doc_id": "bill_044", "page": 1, "kind": "bill", "question": "How many units were consumed for consumer number 739-2377?", "answer": "188"}
+{"doc_id": "bill_044", "page": 1, "kind": "bill", "question": "What is the amount payable for consumer number 739-2377?", "answer": "1,607.00"}

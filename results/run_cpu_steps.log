@@ -1,0 +1,63 @@
+wrote 120 questions to data\synthetic\qa.jsonl
+indexed 45 files, 45 pages, 76 chunks -> indexes\pdf
+indexed 45 files, 45 pages, 52 chunks -> indexes\ocr
+{
+  "indexes/pdf": {
+    "dense": {
+      "hit@1": 0.1417,
+      "hit@3": 0.3083,
+      "hit@5": 0.475,
+      "mrr@10": 0.2905,
+      "n_questions": 120,
+      "ms_per_query": 41.36
+    },
+    "bm25": {
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "mrr@10": 1.0,
+      "n_questions": 120,
+      "ms_per_query": 1.35
+    },
+    "hybrid": {
+      "hit@1": 0.4333,
+      "hit@3": 0.6583,
+      "hit@5": 0.8167,
+      "mrr@10": 0.6004,
+      "n_questions": 120,
+      "ms_per_query": 43.73
+    },
+    "n_chunks": 76
+  },
+  "indexes/ocr": {
+    "dense": {
+      "hit@1": 0.1083,
+      "hit@3": 0.275,
+      "hit@5": 0.375,
+      "mrr@10": 0.2414,
+      "n_questions": 120,
+      "ms_per_query": 43.09
+    },
+    "bm25": {
+      "hit@1": 0.9667,
+      "hit@3": 0.9917,
+      "hit@5": 1.0,
+      "mrr@10": 0.9808,
+      "n_questions": 120,
+      "ms_per_query": 1.19
+    },
+    "hybrid": {
+      "hit@1": 0.375,
+      "hit@3": 0.6167,
+      "hit@5": 0.7833,
+      "mrr@10": 0.5511,
+      "n_questions": 120,
+      "ms_per_query": 45.72
+    },
+    "n_chunks": 52
+  }
+}
+saved docs\retrieval_hit_at_k.png
+real	7m30.021s
+user	0m0.060s
+sys	0m0.107s
