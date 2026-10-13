@@ -1,0 +1,5 @@
+$ python -m mmrag ask "What is the total amount due on invoice INV-6305-00?" --index indexes/ocr
+Q: What is the total amount due on invoice INV-6305-00?
+A: 26,318.72
+Source: invoice_000 page 1 (data/synthetic/scans/invoice_000.jpg)
+# wall time 65 s including ~20 s model load (RTX 3050 Ti 4 GB, 4-bit), run 2026-10-13

@@ -1,0 +1,52 @@
+$ -m mmrag eval-qa --qa data/synthetic/qa.jsonl --index indexes/ocr --n 40 --seed 0 --out results/qa_ocr_bm25.json
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|#####     | 1/2 [00:15<00:15, 15.36s/it]Loading checkpoint shards: 100%|##########| 2/2 [01:12<00:00, 39.95s/it]Loading checkpoint shards: 100%|##########| 2/2 [01:12<00:00, 36.26s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/40] OK   79.5s gold='1,093.00' pred='1,093.00'
+[2/40] OK   25.1s gold='Bluepeak Office Supplies' pred='Bluepeak Office Supplies'
+[3/40] OK   24.7s gold='Corvid Cloud Services' pred='Corvid Cloud Services'
+[4/40] OK   20.7s gold='Quartz Lab Instruments' pred='Quartz Lab Instruments'
+[5/40] OK  113.6s gold='Diya Rao' pred='Diya Rao'
+[6/40] OK  150.9s gold='Yash Iyer' pred='Yash Iyer'
+[7/40] OK   78.2s gold='Granite IT Solutions' pred='Granite IT Solutions'
+[8/40] OK   47.5s gold='Saffron Logistics' pred='Saffron Logistics'
+[9/40] OK   44.2s gold='183' pred='183'
+[10/40] OK   20.6s gold='46,787.50' pred='46,787.50'
+[11/40] OK  120.7s gold='3,853.50' pred='3,853.50'
+[12/40] OK  107.9s gold='18,228.92' pred='18,228.92'
+[13/40] OK   71.2s gold='658' pred='658'
+[14/40] OK  136.1s gold='Rohan Malhotra' pred='Rohan Malhotra'
+[15/40] OK   66.5s gold='Manav Chawla' pred='Manav Chawla'
+[16/40] OK   49.7s gold='31,940.15' pred='31,940.15'
+[17/40] OK   68.6s gold='35,077.00' pred='35,077.00'
+[18/40] OK   38.7s gold='296,377.94' pred='296,377.94'
+[19/40] OK   40.9s gold='Lotus Print Works' pred='Lotus Print Works'
+[20/40] OK   55.7s gold='4,189.00' pred='4,189.00'
+[21/40] OK  100.7s gold='Kabir Bose' pred='Kabir Bose'
+[22/40] OK   59.5s gold='131,703.04' pred='131,703.04'
+[23/40] OK  102.9s gold='2,434.00' pred='INR 2,434.00'
+[24/40] OK   64.7s gold='1,963.50' pred='1,963.50'
+[25/40] OK   84.4s gold='100,639.25' pred='100,639.25'
+[26/40] OK   85.5s gold='4,200.00' pred='4,200.00'
+[27/40] OK   71.1s gold='16,593.75' pred='16,593.75'
+[28/40] OK   84.2s gold='Vikram Bose' pred='Vikram Bose'
+[29/40] OK   40.8s gold='41,964.30' pred='41,964.30'
+[30/40] OK    9.4s gold='5,219.50' pred='5,219.50'
+[31/40] OK   23.1s gold='Arjun Dutta' pred='Arjun Dutta'
+[32/40] OK   18.7s gold='Granite IT Solutions' pred='Granite IT Solutions'
+[33/40] OK   12.2s gold='3,237.00' pred='3,237.00'
+[34/40] OK   17.8s gold='38,367.81' pred='38,367.81'
+[35/40] OK   27.5s gold='1,370.50' pred='1,370.50'
+[36/40] OK   12.9s gold='5,345.00' pred='5,345.00'
+[37/40] OK   33.7s gold='Indigo Furniture Co' pred='Indigo Furniture Co'
+[38/40] OK   23.5s gold='Saffron Logistics' pred='Saffron Logistics'
+[39/40] OK    8.6s gold='5,012.50' pred='5,012.50'
+[40/40] OK   22.2s gold='251,522.31' pred='251,522.31'
+{
+  "n_questions": 40,
+  "answer_accuracy": 1.0,
+  "retrieval_page_hit@1": 1.0,
+  "answer_accuracy_given_correct_page": 1.0,
+  "latency_s_mean": 56.61,
+  "latency_s_median": 48.59,
+  "peak_vram_gb": 2.99
+}

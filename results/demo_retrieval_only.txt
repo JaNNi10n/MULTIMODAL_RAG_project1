@@ -1,0 +1,6 @@
+$ python -m mmrag ask "How many units were consumed for consumer number 913-3945?" --index indexes/ocr --no-vlm
+12.7889  bill_002 page 1
+6.3431  bill_023 page 1
+6.3431  bill_035 page 1
+6.3013  bill_017 page 1
+6.2600  bill_044 page 1
