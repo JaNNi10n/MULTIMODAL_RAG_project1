@@ -88,9 +88,13 @@ def chunk_text(text: str, max_words: int = 60, overlap: int = 15) -> list[str]:
     return [" ".join(words[i:i + max_words]) for i in range(0, max(len(words) - overlap, 1), step)]
 
 
-def chunk_pages(pages: list[Page], max_words: int = 60, overlap: int = 15) -> list[Chunk]:
+def chunk_pages(pages: list[Page], max_words: int = 60, overlap: int = 15, header_words: int = 0) -> list[Chunk]:
+    """Chunk every page. header_words > 0 prefixes later chunks with the page's first words
+    (title / document ID), so a chunk that only holds e.g. the totals still names its document."""
     chunks: list[Chunk] = []
     for pg in pages:
-        for t in chunk_text(pg.text, max_words, overlap):
-            chunks.append(Chunk(len(chunks), pg.doc_id, pg.page, t, pg.image_path))
+        header = " ".join(pg.text.split()[:header_words])
+        for i, t in enumerate(chunk_text(pg.text, max_words, overlap)):
+            text = f"{header} ... {t}" if header and i > 0 else t
+            chunks.append(Chunk(len(chunks), pg.doc_id, pg.page, text, pg.image_path))
     return chunks

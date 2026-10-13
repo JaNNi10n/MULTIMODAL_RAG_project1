@@ -45,7 +45,7 @@ def cmd_index(a):
     files = _expand(a.inputs)
     out = Path(a.out)
     pages = load_documents(files, out / "page_images")
-    chunks = chunk_pages(pages, a.max_words, a.overlap)
+    chunks = chunk_pages(pages, a.max_words, a.overlap, a.header_words)
     index = ChunkIndex.build(chunks, load_encoder(a.embedder))
     index.save(out)
     print(f"indexed {len(files)} files, {len(pages)} pages, {len(chunks)} chunks -> {out}")
@@ -114,6 +114,8 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--out", required=True)
     p.add_argument("--max-words", type=int, default=60)
     p.add_argument("--overlap", type=int, default=15)
+    p.add_argument("--header-words", type=int, default=0,
+                   help="prefix every non-first chunk of a page with the page's first N words")
     p.set_defaults(func=cmd_index)
 
     p = sub.add_parser("ask", help="answer a question over an index")

@@ -62,3 +62,11 @@ def test_ocr_reads_a_scan(corpus):
     invoice_no = q["question"].split("invoice ")[-1].rstrip("?")
     assert "TAX INVOICE" in text.upper()
     assert invoice_no in text
+
+
+def test_chunk_pages_header_words_prefix_later_chunks():
+    text = "TAX INVOICE INV-1 " + " ".join(f"w{i}" for i in range(100))
+    chunks = chunk_pages([Page("d", 1, text, "d.png")], max_words=60, overlap=15, header_words=3)
+    assert len(chunks) == 2
+    assert chunks[0].text.startswith("TAX INVOICE INV-1 w0")
+    assert chunks[1].text.startswith("TAX INVOICE INV-1 ... ")
