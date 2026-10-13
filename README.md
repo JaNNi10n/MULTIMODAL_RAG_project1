@@ -351,7 +351,8 @@ scan, page routing, answer normalisation and margin trimming. A GitHub Actions w
   `Totalamountdue:INR 302,846.71` or `Railwaye-Ticket`. Each of the four OCR BM25 misses (three "total amount due"
   invoice questions and one "pay to Railway e-Ticket" statement question) has the right ID in the gold page's text, but
   the field words in the question no longer match it as separate tokens. Another page of the same type where OCR kept
-  those spaces then scores higher on "total", "amount" and "due" than the gold page scores on the ID. Each of these
+  those spaces then scores higher on the field words ("total amount due", "railway e ticket") than the gold page
+  scores on the ID. Each of these
   scan pages is a single chunk, so chunking is not the cause, and the `--header-words` ablation did not change it.
   Possible fixes are character n-gram tokens for OCR text, splitting merged words, or giving an exact identifier match
   more weight.
