@@ -147,7 +147,7 @@ python -m mmrag ask "What is the total amount due on invoice INV-6305-00?" --ind
 # Evaluation
 python -m mmrag eval-retrieval --qa data/synthetic/qa.jsonl --index indexes/pdf --index indexes/ocr --out results/retrieval_metrics.json
 python -m mmrag eval-qa --qa data/synthetic/qa.jsonl --index indexes/ocr --n 40 --seed 0 --out results/qa_ocr_bm25.json
-# Optional, not run for the results below: the VLM sees only the page image, no OCR text in the prompt
+# Ablation: the VLM sees only the page image, no OCR text in the prompt
 python -m mmrag eval-qa --qa data/synthetic/qa.jsonl --index indexes/ocr --n 40 --seed 0 --context-chunks 0 \
   --out results/qa_ocr_bm25_image_only.json
 
@@ -211,22 +211,27 @@ What the table shows:
 
 ### End-to-end answers with Qwen2.5-VL-3B (4-bit)
 
-Setup: the OCR index (degraded scans, so no PDF text layer), BM25 retrieval, the top page plus up to 6 of its OCR chunks
-in the prompt, Qwen2.5-VL-3B-Instruct in NF4 4-bit, and greedy decoding. Questions are a seeded random subsample of
-40 out of 120 (`--n 40 --seed 0`: 18 invoice, 15 statement and 7 bill questions). The full set was not run because
-of the time each question takes on this GPU. From [`results/qa_ocr_bm25.json`](results/qa_ocr_bm25.json), with
-per-question predictions in [`results/qa_ocr_bm25.predictions.jsonl`](results/qa_ocr_bm25.predictions.jsonl)
-and the console log in [`results/qa_ocr_bm25.log`](results/qa_ocr_bm25.log):
+Setup: the OCR index (degraded scans, so no PDF text layer), BM25 retrieval, Qwen2.5-VL-3B-Instruct in NF4 4-bit,
+and greedy decoding. Questions are a seeded random subsample of 40 out of 120 (`--n 40 --seed 0`: 18 invoice,
+15 statement and 7 bill questions). The full set was not run because of the time each question takes on this GPU.
+Two prompt variants were run on the same 40 questions:
 
-| Metric | Value |
-|---|---:|
-| Questions | 40 |
-| Answer accuracy (relaxed exact match) | 1.000 (40 / 40) |
-| Retrieved page correct (hit@1) | 1.000 |
-| Answer accuracy when the page was correct | 1.000 |
-| Latency per question, mean / median | 56.6 s / 48.6 s |
-| Latency per question, min / max | 8.6 s / 150.9 s |
-| Peak VRAM (`torch.cuda.max_memory_allocated`) | 2.99 GB |
+- **image + OCR text**: the top page image plus up to 6 of that page's OCR chunks (the default,
+  [`results/qa_ocr_bm25.json`](results/qa_ocr_bm25.json)).
+- **image only**: `--context-chunks 0`, the model gets the page image and the question but no OCR text
+  ([`results/qa_ocr_bm25_image_only.json`](results/qa_ocr_bm25_image_only.json)).
+
+Per-question predictions are in the matching `.predictions.jsonl` files and the console output in the `.log` files.
+
+| Metric | image + OCR text | image only |
+|---|---:|---:|
+| Questions | 40 | 40 |
+| Answer accuracy (relaxed exact match) | 1.000 (40 / 40) | 1.000 (40 / 40) |
+| Retrieved page correct (hit@1) | 1.000 | 1.000 |
+| Answer accuracy when the page was correct | 1.000 | 1.000 |
+| Latency per question, mean / median | 56.6 s / 48.6 s | 30.8 s / 29.2 s |
+| Latency per question, min / max | 8.6 s / 150.9 s | 9.3 s / 68.4 s |
+| Peak VRAM (`torch.cuda.max_memory_allocated`) | 2.99 GB | 2.83 GB |
 
 How to read this:
 
@@ -234,12 +239,16 @@ How to read this:
   91% to 100%. None of the 4 questions that BM25 misses on the OCR index (see the retrieval table) happened to be in
   the subsample, so the retrieval step was never wrong here. On all 120 questions, OCR retrieval hit@1 is 0.967, so
   end-to-end accuracy on the full set can be at most about 0.97 with this setup.
-- **The latency mostly measures GPU sharing, not the model.** Other GPU jobs ran on the same 4 GB card during this
-  evaluation, and per-question time ranged from 8.6 s to 151 s. The last questions, which ran once the GPU was less
+- **The latency mostly measures GPU sharing, not the model.** Other GPU jobs ran on the same 4 GB card during the
+  image + OCR text run, and per-question time ranged from 8.6 s to 151 s. The last questions, which ran once the GPU was less
   busy, took 9 to 34 s. Treat the mean as an upper bound for this laptop, not a benchmark.
-- The reader gets the OCR text and the page image together, so this result does not separate how much comes from the
-  image and how much from the OCR text. The `--context-chunks 0` (image-only) run that would answer that has not been
-  done yet.
+- **The OCR text is not needed on this sample.** With the image alone, Qwen2.5-VL still answered 40 / 40. The two runs
+  gave the same string for 30 questions. The other 10 differ only in formatting: without the OCR text the model added
+  a currency prefix (`INR 1,093.00`) seven times, a unit (`183 kWh`) twice, and wrote `CorVid` for `Corvid` once. The
+  scorer normalises these away. So on these single-page, templated scans the model reads the values from the image
+  itself, and the OCR text mainly makes the answer copy the document's exact format. The OCR text may still help on
+  harder pages; this sample cannot show that. The image-only prompt is also shorter and used 0.16 GB less peak VRAM. Its lower latency cannot be credited to the shorter prompt alone,
+  because the GPU was shared differently during the two runs.
 
 ## How it works
 
@@ -294,6 +303,7 @@ pipeline that the original script was missing: chat message, `apply_chat_templat
   budget then covers the text at a higher resolution.
 
 The prompt contains the OCR text, tells the model to trust the image if the two disagree, and asks for only the value.
+With `--context-chunks 0` the text part is left empty, which is how the image-only ablation in Results was run.
 Decoding is greedy with at most 48 new tokens, so the output is deterministic and short enough to score.
 
 **7. Evaluation** (`mmrag/evaluate.py`).
@@ -323,11 +333,12 @@ scan, page routing, answer normalisation and margin trimming. GitHub Actions run
   fix it.
 - **Small end-to-end sample.** The VLM is evaluated on 40 of the 120 questions because each question took between
   9 s and 2.5 minutes on a 4 GB laptop GPU that other jobs were also using. With n = 40, one question is 2.5 points,
-  and the 40 / 40 result only shows that accuracy is likely above about 91%. Running all 120 questions is the first
+  and each 40 / 40 result only shows that accuracy is likely above about 91%. The two prompt variants cannot be told
+  apart at this sample size. Running all 120 questions is the first
   thing to do with more GPU time.
 - **Latency numbers are indicative only.** All runs happened on a shared laptop while other GPU and CPU jobs were
   running, so the timings are noisy. Dense query latency moved between about 35 and 80 ms from run to run.
-- **Next steps:** the full 120-question VLM run and the image-only (`--context-chunks 0`) ablation, page-level score
+- **Next steps:** the full 120-question VLM run for both prompt variants, page-level score
   aggregation, a cross-encoder reranker, a public DocVQA-style evaluation, batched VLM inference, and a small
   FastAPI or Gradio front end.
 

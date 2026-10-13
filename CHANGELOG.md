@@ -21,7 +21,8 @@ First working version, built on top of the original prototype commit.
 - Seeded generator for a synthetic, privacy-safe corpus (45 invoices, statements and bills, 120 questions).
 - Evaluation: page-level hit@k / MRR for every retrieval mode, end-to-end answer accuracy, latency and VRAM.
 - End-to-end Qwen2.5-VL results on a seeded 40-question subsample (`results/qa_ocr_bm25.*`).
-- `--context-chunks` option for `eval-qa` (`0` = the reader sees only the page image). Not evaluated yet.
+- `--context-chunks` option for `eval-qa` (`0` = the reader sees only the page image), and an image-only run on the
+  same 40 questions (`results/qa_ocr_bm25_image_only.*`): also 40/40, peak VRAM 2.83 GB.
 - Retrieval ablation with the 16-word page-header prefix on both the PDF and the OCR index.
 - Results in `results/`, retrieval chart in `docs/`, pytest suite, ruff config, GitHub Actions CI,
   pinned `requirements.txt` / `requirements-vlm.txt`, README, MIT license.

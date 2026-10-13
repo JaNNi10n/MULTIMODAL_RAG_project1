@@ -16,3 +16,5 @@ python scripts/plot_retrieval.py results/retrieval_metrics.json docs/retrieval_h
 # End-to-end answers with Qwen2.5-VL-3B (4-bit) on a seeded random subsample of 40 questions.
 python -m mmrag eval-qa --qa data/synthetic/qa.jsonl --index indexes/ocr --n 40 --seed 0 \
   --out results/qa_ocr_bm25.json
+# Ablation: same 40 questions, the VLM gets only the page image (no OCR text in the prompt).
+python -m mmrag eval-qa --qa data/synthetic/qa.jsonl --index indexes/ocr --n 40 --seed 0 --context-chunks 0   --out results/qa_ocr_bm25_image_only.json
