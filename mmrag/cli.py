@@ -88,7 +88,7 @@ def cmd_eval_qa(a):
     qa = subsample(load_qa(Path(a.qa)), a.n, a.seed)
     index = ChunkIndex.load(Path(a.index), load_encoder(a.embedder))
     pipe = RAGPipeline(index, QwenVLReader(a.vlm, load_in_4bit=not a.no_4bit, max_pixels=a.max_pixels),
-                       k=a.k, mode=a.mode)
+                       k=a.k, mode=a.mode, max_context_chunks=a.context_chunks)
     out = Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     log = out.with_suffix(".predictions.jsonl")
@@ -136,6 +136,8 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--n", type=int, default=30, help="random subsample size (VLM is slow on 4 GB GPUs)")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--max-pixels", type=int, default=768 * 28 * 28)
+    p.add_argument("--context-chunks", type=int, default=6,
+                   help="page text chunks put in the prompt; 0 = the VLM sees only the page image")
     p.add_argument("--out", required=True)
     p.set_defaults(func=cmd_eval_qa)
 

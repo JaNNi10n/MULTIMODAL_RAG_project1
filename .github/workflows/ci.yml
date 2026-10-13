@@ -20,6 +20,6 @@ jobs:
           pip install torch==2.3.1 --index-url https://download.pytorch.org/whl/cpu
           pip install -r requirements.txt
       - name: Lint
-        run: ruff check mmrag tests examples
+        run: ruff check mmrag tests examples scripts
       - name: Test
         run: pytest -q
