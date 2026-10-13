@@ -1,0 +1,5 @@
+# Optional: the Qwen2.5-VL answer step (needs a CUDA GPU; 4-bit load fits in 4 GB VRAM).
+-r requirements.txt
+accelerate==1.6.0
+bitsandbytes==0.45.5
+qwen-vl-utils==0.0.11
