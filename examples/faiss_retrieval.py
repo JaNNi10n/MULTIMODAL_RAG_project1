@@ -27,5 +27,5 @@ index.add(np.asarray(embeddings, dtype=np.float32))
 query = sys.argv[1] if len(sys.argv) > 1 else "How much electricity was used?"
 query_vec = embedder.encode([query], normalize_embeddings=True)
 scores, indices = index.search(np.asarray(query_vec, dtype=np.float32), k=2)
-for score, i in zip(scores[0], indices[0]):
+for score, i in zip(scores[0], indices[0], strict=False):
     print(f"{score:.3f}  {chunks[i]}")
