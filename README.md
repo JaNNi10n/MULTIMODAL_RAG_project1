@@ -146,17 +146,19 @@ python -m mmrag ask "What is the total amount due on invoice INV-6305-00?" --ind
 
 # Evaluation
 python -m mmrag eval-retrieval --qa data/synthetic/qa.jsonl --index indexes/pdf --index indexes/ocr --out results/retrieval_metrics.json
-python -m mmrag eval-qa --qa data/synthetic/qa.jsonl --index indexes/ocr --n 40 --seed 0 --out results/qa_ocr_bm25.json
+python -m mmrag eval-qa --qa data/synthetic/qa.jsonl --index indexes/ocr --n 120 --out results/qa_ocr_bm25_full.json
 # Ablation: the VLM sees only the page image, no OCR text in the prompt
-python -m mmrag eval-qa --qa data/synthetic/qa.jsonl --index indexes/ocr --n 40 --seed 0 --context-chunks 0 \
-  --out results/qa_ocr_bm25_image_only.json
+python -m mmrag eval-qa --qa data/synthetic/qa.jsonl --index indexes/ocr --n 120 --context-chunks 0 \
+  --out results/qa_ocr_bm25_image_only_full.json
+# Seeded 40-question subsample (--n 40 --seed 0), as in the earlier runs
+python -m mmrag eval-qa --qa data/synthetic/qa.jsonl --index indexes/ocr --n 40 --seed 0 --out results/qa_ocr_bm25_idle_gpu.json
 
 # Every metrics file in results/, end to end
 bash scripts/run_all.sh
 
 # Tests and lint
 pytest -q
-ruff check mmrag tests examples
+ruff check mmrag tests examples scripts
 ```
 
 Retrieval mode is chosen with `--mode bm25|dense|hybrid` (default `bm25`, see Results for why).
@@ -202,8 +204,8 @@ What the table shows:
   cannot tell 15 near-identical invoices apart. Hybrid RRF recovers part of the gap, but the dense ranking still drags
   it down. BM25 is therefore the default mode.
 - **OCR costs little.** On the degraded scans BM25 drops from 1.000 to 0.967 hit@1 (4 of 120 questions), and the gold
-  page is still in the top 5 for every question. In all four misses the ID was read correctly. The problem was chunk
-  scoring, as explained under Limitations.
+  page is still in the top 5 for every question. In all four misses the ID was read correctly. The problem was that
+  OCR merged the words of the asked-for field, as explained under Limitations.
 - **The header prefix is not worth it.** Prefixing chunks with the page's first 16 words changed dense hit@1 by at most
   +2.5 points and slightly lowered BM25 on the PDF text. It stays off by default.
 - Latencies are wall-clock times on a shared machine (see Limitations). They show the order of magnitude: BM25 takes
@@ -212,43 +214,59 @@ What the table shows:
 ### End-to-end answers with Qwen2.5-VL-3B (4-bit)
 
 Setup: the OCR index (degraded scans, so no PDF text layer), BM25 retrieval, Qwen2.5-VL-3B-Instruct in NF4 4-bit,
-and greedy decoding. Questions are a seeded random subsample of 40 out of 120 (`--n 40 --seed 0`: 18 invoice,
-15 statement and 7 bill questions). The full set was not run because of the time each question takes on this GPU.
-Two prompt variants were run on the same 40 questions:
+and greedy decoding. Two prompt variants were run:
 
-- **image + OCR text**: the top page image plus up to 6 of that page's OCR chunks (the default,
-  [`results/qa_ocr_bm25.json`](results/qa_ocr_bm25.json)).
-- **image only**: `--context-chunks 0`, the model gets the page image and the question but no OCR text
-  ([`results/qa_ocr_bm25_image_only.json`](results/qa_ocr_bm25_image_only.json)).
+- **image + OCR text**: the top page image plus up to 6 of that page's OCR chunks (the default).
+- **image only**: `--context-chunks 0`. The model gets the page image and the question but no OCR text.
 
-Per-question predictions are in the matching `.predictions.jsonl` files and the console output in the `.log` files.
+**All 120 questions, GPU not shared with other jobs** ([`results/qa_ocr_bm25_full.json`](results/qa_ocr_bm25_full.json),
+[`results/qa_ocr_bm25_image_only_full.json`](results/qa_ocr_bm25_image_only_full.json)):
 
 | Metric | image + OCR text | image only |
 |---|---:|---:|
-| Questions | 40 | 40 |
-| Answer accuracy (relaxed exact match) | 1.000 (40 / 40) | 1.000 (40 / 40) |
-| Retrieved page correct (hit@1) | 1.000 | 1.000 |
-| Answer accuracy when the page was correct | 1.000 | 1.000 |
-| Latency per question, mean / median | 56.6 s / 48.6 s | 30.8 s / 29.2 s |
-| Latency per question, min / max | 8.6 s / 150.9 s | 9.3 s / 68.4 s |
+| Questions | 120 | 120 |
+| Answer accuracy (relaxed exact match) | 0.967 (116 / 120) | 0.967 (116 / 120) |
+| Retrieved page correct (hit@1) | 0.967 | 0.967 |
+| Answer accuracy when the page was correct | 1.000 (116 / 116) | 1.000 (116 / 116) |
+| Latency per question, mean / median | 3.11 s / 3.18 s | 3.03 s / 2.98 s |
+| Latency per question, min / max | 1.38 s / 4.61 s | 1.46 s / 4.75 s |
 | Peak VRAM (`torch.cuda.max_memory_allocated`) | 2.99 GB | 2.83 GB |
+
+Per-question predictions are in the matching `.predictions.jsonl` files and the console output in the `.log` files.
+Latency is per question, including retrieval, with the model already loaded. Loading the 4-bit model takes extra time
+once per process.
 
 How to read this:
 
-- **40 / 40 is a small-sample result, not "100% accuracy".** The 95% Wilson interval for 40 out of 40 is about
-  91% to 100%. None of the 4 questions that BM25 misses on the OCR index (see the retrieval table) happened to be in
-  the subsample, so the retrieval step was never wrong here. On all 120 questions, OCR retrieval hit@1 is 0.967, so
-  end-to-end accuracy on the full set can be at most about 0.97 with this setup.
-- **The latency mostly measures GPU sharing, not the model.** Other GPU jobs ran on the same 4 GB card during the
-  image + OCR text run, and per-question time ranged from 8.6 s to 151 s. The last questions, which ran once the GPU was less
-  busy, took 9 to 34 s. Treat the mean as an upper bound for this laptop, not a benchmark.
-- **The OCR text is not needed on this sample.** With the image alone, Qwen2.5-VL still answered 40 / 40. The two runs
-  gave the same string for 30 questions. The other 10 differ only in formatting: without the OCR text the model added
-  a currency prefix (`INR 1,093.00`) seven times, a unit (`183 kWh`) twice, and wrote `CorVid` for `Corvid` once. The
-  scorer normalises these away. So on these single-page, templated scans the model reads the values from the image
-  itself, and the OCR text mainly makes the answer copy the document's exact format. The OCR text may still help on
-  harder pages; this sample cannot show that. The image-only prompt is also shorter and used 0.16 GB less peak VRAM. Its lower latency cannot be credited to the shorter prompt alone,
-  because the GPU was shared differently during the two runs.
+- **Every error is a retrieval error.** The 4 wrong answers are exactly the 4 questions that BM25 ranks wrong on the OCR
+  index (see the retrieval table). In each case the reader correctly read the asked-for value (the total, or the
+  Railway e-Ticket payment) from the page it was given, but that page was a different invoice or statement. On the 116 questions where retrieval found the right page, the
+  reader was right every time. So better retrieval is what would improve this pipeline, not a bigger reader.
+- **This is still a small, easy test set.** The 95% Wilson interval for 116 / 120 is about 92% to 99%. The questions
+  are templated and every page is a clean single page (see Limitations).
+- **The OCR text is not needed on this data.** With the image alone, Qwen2.5-VL got the same 116 / 120. The two runs
+  gave the same string for 78 questions. The other 42 differ only in formatting. Without the OCR text the model added
+  a currency prefix (`INR 1,093.00`) 24 times and a unit (`183 kWh`) 13 times, dropped the thousands separator 4 times
+  (`1807.50`), and wrote `CorVid` for `Corvid` once. The scorer normalises these away. So on these templated scans the
+  model reads the values from the image itself, and the OCR text mainly makes the answer copy the document's exact
+  format. The OCR text may still help on harder pages; this data cannot show that. The image-only prompt is shorter and
+  used 0.16 GB less peak VRAM, but it was not meaningfully faster.
+
+**Earlier runs on a seeded 40-question subsample** (`--n 40 --seed 0`: 18 invoice, 15 statement and 7 bill questions).
+These came first, while other jobs were using the same 4 GB GPU, which made each question very slow. They were
+repeated on the idle GPU with the same command:
+
+| Run | Variant | Accuracy | Latency mean / median | Peak VRAM | Files |
+|---|---|---:|---:|---:|---|
+| GPU shared with other jobs | image + OCR text | 40 / 40 | 56.6 s / 48.6 s | 2.99 GB | [`qa_ocr_bm25.*`](results/qa_ocr_bm25.json) |
+| GPU shared with other jobs | image only | 40 / 40 | 30.8 s / 29.2 s | 2.83 GB | [`qa_ocr_bm25_image_only.*`](results/qa_ocr_bm25_image_only.json) |
+| GPU not shared | image + OCR text | 40 / 40 | 2.27 s / 2.25 s | 2.99 GB | [`qa_ocr_bm25_idle_gpu.*`](results/qa_ocr_bm25_idle_gpu.json) |
+| GPU not shared | image only | 40 / 40 | 2.86 s / 2.77 s | 2.83 GB | [`qa_ocr_bm25_image_only_idle_gpu.*`](results/qa_ocr_bm25_image_only_idle_gpu.json) |
+
+The idle-GPU runs produced exactly the same 40 answer strings as the shared-GPU runs for each variant, because
+decoding is greedy. Only the timings changed, by a factor of 10 to 25. The shared-GPU latencies therefore measure
+contention with the other jobs, not the model. None of the 4 retrieval misses happened to fall in this subsample,
+which is why it scored 40 / 40 while the full set scores 116 / 120.
 
 ## How it works
 
@@ -303,7 +321,8 @@ pipeline that the original script was missing: chat message, `apply_chat_templat
   budget then covers the text at a higher resolution.
 
 The prompt contains the OCR text, tells the model to trust the image if the two disagree, and asks for only the value.
-With `--context-chunks 0` the text part is left empty, which is how the image-only ablation in Results was run.
+With `--context-chunks 0` no OCR text is passed and the retrieved-text slot just says `(none)`. That is how the
+image-only ablation in Results was run.
 Decoding is greedy with at most 48 new tokens, so the output is deterministic and short enough to score.
 
 **7. Evaluation** (`mmrag/evaluate.py`).
@@ -316,7 +335,8 @@ Decoding is greedy with at most 48 new tokens, so the output is deterministic an
 
 **8. Engineering.** The 22 pytest tests run on a CPU with no model downloads. A fake hashing encoder stands in for
 MiniLM, and a stub reader stands in for the VLM. The tests check chunking, BM25, FAISS save/load, OCR on a generated
-scan, page routing, answer normalisation and margin trimming. GitHub Actions runs ruff and pytest on every push.
+scan, page routing, answer normalisation and margin trimming. A GitHub Actions workflow
+(`.github/workflows/ci.yml`) is set up to run ruff and pytest on pushes to `main` and on pull requests.
 
 ## Limitations and next steps
 
@@ -327,19 +347,22 @@ scan, page routing, answer normalisation and margin trimming. GitHub Actions run
   would be the next step.
 - **Single-page documents, single-page reading.** The reader sees one page. Answers that span pages, such as a
   multi-page statement total, are out of scope.
-- **Page scores use the best chunk.** All four OCR BM25 misses happen because the document ID and the asked-for field
-  ("total amount due") sit in different chunks, and another invoice's totals chunk scores higher. Scoring a page by the
-  sum of its chunk scores, or indexing whole pages for BM25, is the obvious fix. The `--header-words` ablation did not
-  fix it.
-- **Small end-to-end sample.** The VLM is evaluated on 40 of the 120 questions because each question took between
-  9 s and 2.5 minutes on a 4 GB laptop GPU that other jobs were also using. With n = 40, one question is 2.5 points,
-  and each 40 / 40 result only shows that accuracy is likely above about 91%. The two prompt variants cannot be told
-  apart at this sample size. Running all 120 questions is the first
-  thing to do with more GPU time.
-- **Latency numbers are indicative only.** All runs happened on a shared laptop while other GPU and CPU jobs were
-  running, so the timings are noisy. Dense query latency moved between about 35 and 80 ms from run to run.
-- **Next steps:** the full 120-question VLM run for both prompt variants, page-level score
-  aggregation, a cross-encoder reranker, a public DocVQA-style evaluation, batched VLM inference, and a small
+- **OCR word merging hurts BM25.** RapidOCR often drops the spaces inside a label, so the scan text reads
+  `Totalamountdue:INR 302,846.71` or `Railwaye-Ticket`. Each of the four OCR BM25 misses (three "total amount due"
+  invoice questions and one "pay to Railway e-Ticket" statement question) has the right ID in the gold page's text, but
+  the field words in the question no longer match it as separate tokens. Another page of the same type where OCR kept
+  those spaces then scores higher on "total", "amount" and "due" than the gold page scores on the ID. Each of these
+  scan pages is a single chunk, so chunking is not the cause, and the `--header-words` ablation did not change it.
+  Possible fixes are character n-gram tokens for OCR text, splitting merged words, or giving an exact identifier match
+  more weight.
+- **Small end-to-end test set.** 120 questions is small. One question is 0.8 points, and the two prompt variants
+  cannot be told apart at this size. Both score 116 / 120, and every error comes from retrieval.
+- **Latency numbers depend on what else runs on the laptop.** The first 40-question runs shared the GPU with other jobs
+  and took 10 to 25 times longer per question than the same runs on an idle GPU. The retrieval timings were also
+  measured on a busy machine. In `results/retrieval_metrics.json` a dense query took between about 35 and 80 ms,
+  depending on the index and on the load at that moment.
+- **Next steps:** OCR-robust BM25 tokens (see above),
+  a cross-encoder reranker, a public DocVQA-style evaluation, batched VLM inference, and a small
   FastAPI or Gradio front end.
 
 ## Privacy note on the repository history
